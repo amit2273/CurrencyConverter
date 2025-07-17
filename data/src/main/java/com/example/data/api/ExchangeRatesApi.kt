@@ -10,4 +10,7 @@ interface ExchangeRatesApi {
     suspend fun getLatestRates(
         @Query("app_id") appId: String
     ): Response<ExchangeRatesResponse>
+
+    @GET("currencies.json")
+    suspend fun getCurrencies(): Response<Map<String, String>>
 }

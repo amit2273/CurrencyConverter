@@ -5,5 +5,10 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    viewModel { ConversionViewModel(get()) }
+    viewModel {
+        ConversionViewModel(
+            convertUseCase = get(),
+            getCurrenciesUseCase = get()
+        )
+    }
 }

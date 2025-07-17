@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.logging.interceptor)
 
     implementation(libs.koin.core)
+    implementation(libs.koin.android)
 
     implementation(libs.gson)
 
