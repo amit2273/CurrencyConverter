@@ -5,8 +5,12 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import com.example.data.api.ExchangeRatesApi
 import com.example.data.db.AppDatabase
+import com.example.data.db.CurrencyLocalDataSource
+import com.example.data.db.RateLocalDataSource
 import com.example.data.preference.PrefsLastUpdated
+import com.example.data.repository.CurrencyLocalDataSourceImpl
 import com.example.data.repository.CurrencyRepositoryImpl
+import com.example.data.repository.RateLocalDataSourceImpl
 import com.example.domain.repository.CurrencyRepository
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -39,13 +43,16 @@ val dataModule = module {
 
     single { PrefsLastUpdated(get()) }
 
+    single<RateLocalDataSource> { RateLocalDataSourceImpl(get()) }
+    single<CurrencyLocalDataSource> { CurrencyLocalDataSourceImpl(get(), get()) }
     single<CurrencyRepository> {
         CurrencyRepositoryImpl(
             api = get(),
-            dao = get(),
-            currencyDao = get(),
-            appId = "2116d3aa7d2d462b82ed5e33b3014c6c",
-            prefs = get()
+            rateLocalDataSource = get(),
+            currencyLocalDataSource = get(),
+            prefs = get(),
+            appId = "2116d3aa7d2d462b82ed5e33b3014c6c"
         )
     }
+
 }

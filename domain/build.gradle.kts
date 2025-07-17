@@ -15,4 +15,11 @@ kotlin {
 dependencies {
     // Koin core only — no Android
     implementation(libs.koin.core)
+    // MockK
+    testImplementation(libs.mockk)
+// Kotlin Coroutines Test
+    testImplementation(libs.kotlinx.coroutines.test)
+// JUnit 4
+    testImplementation(libs.junit)
+
 }

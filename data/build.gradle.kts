@@ -68,5 +68,11 @@ dependencies {
 
     implementation(libs.converter.gson)
 
+    testImplementation(libs.mockk)
+// Kotlin Coroutines Test
+    testImplementation(libs.kotlinx.coroutines.test)
+// JUnit 4
+    testImplementation(libs.junit)
+
 
 }

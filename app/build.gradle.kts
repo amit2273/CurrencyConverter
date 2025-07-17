@@ -74,4 +74,17 @@ dependencies {
 
     // Jetpack Compose integration (optional but recommended for scoped DI)
     implementation(libs.koin.androidx.compose)
+
+
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlin.test)
+
+    // Coroutines test
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    // Turbine for testing Flow/StateFlow
+    testImplementation(libs.turbine)
+
+    // MockK (optional)
+    testImplementation(libs.mockk)
 }
