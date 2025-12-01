@@ -1,7 +1,7 @@
 import com.example.domain.model.ConversionResult
 import com.example.domain.model.CurrencyRate
 import com.example.domain.repository.CurrencyRepository
-import com.example.domain.usecase.GetConvertedRatesUseCase
+import com.example.domain.usecase.GetConvertedRatesUseCaseImpl
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
@@ -9,20 +9,19 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class GetConvertedRatesUseCaseTest {
+class GetConvertedRatesUseCaseImplTest {
 
     private lateinit var repository: CurrencyRepository
-    private lateinit var useCase: GetConvertedRatesUseCase
+    private lateinit var useCase: GetConvertedRatesUseCaseImpl
 
     @Before
     fun setup() {
         repository = mockk()
-        useCase = GetConvertedRatesUseCase(repository)
+        useCase = GetConvertedRatesUseCaseImpl(repository)
     }
 
     @Test
     fun `returns correct conversion when base currency is USD`() = runTest {
-        // Given
         val rates = listOf(
             CurrencyRate("USD", 1.0),
             CurrencyRate("EUR", 0.85),
@@ -30,10 +29,8 @@ class GetConvertedRatesUseCaseTest {
         )
         coEvery { repository.getExchangeRates() } returns rates
 
-        // When
         val result = useCase("USD", 2.0)
 
-        // Then
         val expected = listOf(
             ConversionResult("USD", 2.0),
             ConversionResult("EUR", 1.7),
@@ -52,8 +49,6 @@ class GetConvertedRatesUseCaseTest {
         coEvery { repository.getExchangeRates() } returns rates
 
         val result = useCase("EUR", 2.0)
-
-        val eurToUsd = 1.0 / 0.85
         val expected = listOf(
             ConversionResult("USD", 2.0 * (1.0 / 0.85)),
             ConversionResult("EUR", 2.0),
@@ -75,7 +70,6 @@ class GetConvertedRatesUseCaseTest {
         coEvery { repository.getExchangeRates() } returns rates
 
         val result = useCase("INR", 10.0)
-
         assertEquals(emptyList<ConversionResult>(), result)
     }
 }

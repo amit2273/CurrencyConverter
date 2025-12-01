@@ -1,13 +1,11 @@
 package com.example.data
 
-import com.example.data.api.ApiErrorResponse
 import com.example.data.api.ExchangeRatesApi
 import com.example.data.db.CurrencyLocalDataSource
 import com.example.data.db.RateLocalDataSource
 import com.example.data.preference.PrefsLastUpdated
 import com.example.data.repository.CurrencyRepositoryImpl
 import com.example.domain.model.CurrencyRate
-import com.google.gson.Gson
 import io.mockk.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -147,17 +145,14 @@ class CurrencyRepositoryImplTest {
         val errorJson = """{"message":"fail","description":"invalid app id"}"""
         val responseBody = ResponseBody.create("application/json".toMediaTypeOrNull(), errorJson)
 
-        // Mock error response
         val response: Response<Map<String, String>> = mockk()
         every { response.isSuccessful } returns false
         every { response.errorBody() } returns responseBody
 
-        // Setup mocks
         coEvery { currencyLocalDataSource.isCacheValid() } returns false
         coEvery { currencyLocalDataSource.getAll() } returns emptyMap()
         coEvery { api.getCurrencies() } returns response
 
-        // Run and assert
         val exception = runCatching {
             repository.getAvailableCurrencies()
         }.exceptionOrNull()
@@ -169,9 +164,7 @@ class CurrencyRepositoryImplTest {
     @Test
     fun `getLastUpdatedTime returns prefs time`() = runTest {
         coEvery { prefs.get(PrefsLastUpdated.KEY_EXCHANGE_RATES) } returns 12345678L
-
         val result = repository.getLastUpdatedTime()
-
         assertEquals(12345678L, result)
     }
 }

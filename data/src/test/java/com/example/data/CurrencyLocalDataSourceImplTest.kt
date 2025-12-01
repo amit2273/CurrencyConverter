@@ -31,9 +31,7 @@ class CurrencyLocalDataSourceImplTest {
             CurrencyEntity("EUR", "Euro")
         )
         coEvery { currencyDao.getAllCurrencies() } returns entities
-
         val result = dataSource.getAll()
-
         assertEquals(mapOf("USD" to "US Dollar", "EUR" to "Euro"), result)
     }
 

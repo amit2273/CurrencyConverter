@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/domain/lib" />
             <option value="$PROJECT_DIR$/presentation" />
+            <option value="$PROJECT_DIR$/presentation/feature-currencyConverter" />
           </set>
         </option>
       </GradleProjectSettings>

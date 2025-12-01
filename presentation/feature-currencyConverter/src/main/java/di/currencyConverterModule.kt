@@ -1,10 +1,10 @@
-package com.example.currencyconverter.di
+package di
 
-import com.example.currencyconverter.presentation.viewmodel.ConversionViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+import viewmodel.ConversionViewModel
 
-val appModule = module {
+val currencyConverterModule = module {
     viewModel {
         ConversionViewModel(
             convertUseCase = get(),

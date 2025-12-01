@@ -1,9 +1,7 @@
-package com.example.currencyconverter
+package com.example.feature_currencyconverter
 
-import com.example.currencyconverter.presentation.viewmodel.ConversionIntent
-import com.example.currencyconverter.presentation.viewmodel.ConversionViewModel
+import viewmodel.ConversionIntent
 import com.example.domain.model.ConversionResult
-import com.example.domain.model.CurrencyRate
 import com.example.domain.usecase.GetAvailableCurrenciesUseCase
 import com.example.domain.usecase.GetConvertedRatesUseCase
 import io.mockk.coEvery
@@ -15,6 +13,7 @@ import kotlinx.coroutines.test.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import viewmodel.ConversionViewModel
 import kotlin.test.assertEquals
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -48,7 +47,10 @@ class ConversionViewModelTest {
 
         coEvery { getCurrenciesUseCase() } returns fakeCurrencies
 
-        viewModel = ConversionViewModel(convertUseCase, getCurrenciesUseCase) // Reinit to trigger init block
+        viewModel = ConversionViewModel(
+            convertUseCase,
+            getCurrenciesUseCase
+        )
         advanceUntilIdle()
 
         val state = viewModel.state.value
@@ -88,5 +90,19 @@ class ConversionViewModelTest {
         val state = viewModel.state.value
         assertEquals("Something went wrong", state.error)
         assertEquals(false, state.isLoading)
+    }
+
+    @Test
+    fun `handleIntent Entered Amount Manipulation`() = runTest {
+        val fakeRates = listOf(
+            ConversionResult("EUR", 0.85),
+            ConversionResult("JPY", 110.0)
+        )
+        coEvery { convertUseCase("USD", 1.0) } returns fakeRates
+        viewModel.handleIntent(ConversionIntent.ManipulateAmount("0.20"))
+        advanceUntilIdle()
+
+        val state = viewModel.state.value
+        assertEquals("0.20",state.enteredAmount)
     }
 }

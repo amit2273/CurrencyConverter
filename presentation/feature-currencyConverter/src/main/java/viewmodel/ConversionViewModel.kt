@@ -1,4 +1,4 @@
-package com.example.currencyconverter.presentation.viewmodel
+package viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -38,9 +38,18 @@ class ConversionViewModel(
                     _state.value = _state.value.copy(isLoading = true)
                     try {
                         val result = convertUseCase(intent.baseCurrency, intent.amount)
-                        _state.value = _state.value.copy(conversions = result, isLoading = false)
+                        _state.value = _state.value.copy(conversions = result, isLoading = false, error = null)
                     } catch (e: Exception) {
                         _state.value = _state.value.copy(error = e.message ?: "Unknown error", isLoading = false)
+                    }
+                }
+            }
+            is ConversionIntent.ManipulateAmount -> {
+                with(intent.enteredString){
+                    if(length > 1 && contains(".").not()  && first() == '0'){
+                        _state.value = _state.value.copy(enteredAmount = drop(1))
+                    } else{
+                        _state.value = _state.value.copy(enteredAmount = this)
                     }
                 }
             }

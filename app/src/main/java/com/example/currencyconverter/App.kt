@@ -1,9 +1,9 @@
 package com.example.currencyconverter
 
 import android.app.Application
-import com.example.currencyconverter.di.appModule
 import com.example.data.di.dataModule
 import com.example.domain.di.domainModule
+import di.currencyConverterModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -13,7 +13,7 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             modules(
-                listOf(appModule, dataModule, domainModule)
+                listOf(currencyConverterModule, dataModule, domainModule)
             )
         }
     }
