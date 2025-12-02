@@ -73,6 +73,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
 // JUnit 4
     testImplementation(libs.junit)
+    testImplementation("app.cash.turbine:turbine:1.0.0")
 
 
 }

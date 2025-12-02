@@ -1,5 +1,6 @@
 package com.example.data
 
+import app.cash.turbine.test
 import com.example.data.api.ExchangeRatesApi
 import com.example.data.db.CurrencyLocalDataSource
 import com.example.data.db.RateLocalDataSource
@@ -9,6 +10,8 @@ import com.example.domain.model.CurrencyRate
 import io.mockk.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody
@@ -41,6 +44,18 @@ class CurrencyRepositoryImplTest {
             appId = "test_app_id"
         )
     }
+
+    @Test
+    fun `test test fun`() = runTest {
+
+        val flow = repository.testFun()
+        flow.test {
+            assertEquals("Hallo", awaitItem())
+            assertEquals("buffalo", awaitItem())
+            awaitComplete()
+        }
+    }
+
 
     @After
     fun tearDown() {

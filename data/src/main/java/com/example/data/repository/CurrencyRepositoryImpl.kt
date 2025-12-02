@@ -9,6 +9,9 @@ import com.example.domain.model.CurrencyRate
 import com.example.domain.repository.CurrencyRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
 class CurrencyRepositoryImpl(
@@ -58,6 +61,14 @@ class CurrencyRepositoryImpl(
 
     override suspend fun getLastUpdatedTime(): Long {
         return prefs.get(PrefsLastUpdated.KEY_EXCHANGE_RATES)
+    }
+
+    suspend fun testFun(): Flow<String>{
+        delay(200)
+        return flow {
+            emit("Hallo")
+            emit("buffalo")
+        }
     }
 
     private fun parseError(errorBody: String?): String {
