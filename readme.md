@@ -1,4 +1,4 @@
-# Currency Converter App
+# Revidd Video App
 
 This is a sample Android application demonstrating a **modularized, scalable architecture** using:
 
@@ -16,15 +16,15 @@ This is a sample Android application demonstrating a **modularized, scalable arc
 
 ## 🧱 Project Structure
 
-currencyconverter/
+Revidd/
 ├── app/ # Main application module (hosts the MainActivity)
 ├── data/ # Implements repository interfaces, handles API + local db
 ├── domain/ # Contains business models and use case interfaces
 └── presentation/
-└── feature-currencyConverter/ # Feature module (Compose UI, ViewModel, DI)
+└── feature-consumption/ # Feature module for consumption. All Video consumption should land here but for now its all in app due to time constraints (Compose UI, ViewModel, DI)
 
 # Unit Tests
-Unit tests are written in domain, data and presentations feature module(feature-currencyConverter))
+Unit tests not written yet
 
 # Android Studio Version Used
 Android Studio Narwhal | 2025.1.1 Patch 1

@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel target="11">
+      <module name="currencyconverter.app" target="21" />
+      <module name="currencyconverter.data" target="21" />
+      <module name="currencyconverter.presentation" target="21" />
+      <module name="currencyconverter.presentation.feature-home" target="21" />
+      <module name="mythik.app" target="21" />
+      <module name="mythik.data" target="21" />
+      <module name="mythik.presentation" target="21" />
+      <module name="mythik.presentation.feature-consumption" target="21" />
+      <module name="mythik.presentation.feature-home" target="21" />
+      <module name="Revidd.app" target="21" />
+      <module name="Revidd.data" target="21" />
+      <module name="Revidd.presentation" target="21" />
+      <module name="Revidd.presentation.feature-consumption" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>

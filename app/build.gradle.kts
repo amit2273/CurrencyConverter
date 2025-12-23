@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.currencyconverter"
+    namespace = "com.revidd.did"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.currencyconverter"
+        applicationId = "com.revidd.did"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -57,6 +57,10 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.runtime.android)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -64,10 +68,13 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation(project(":presentation:feature-currencyConverter"))
+    implementation(project(":presentation:feature-consumption"))
     implementation(project(":domain"))
     implementation(project(":data"))
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
+    implementation(libs.coil.compose)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
 }

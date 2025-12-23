@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.data"
+    namespace = "com.revidd.did"
     compileSdk = 36
 
     defaultConfig {
@@ -49,10 +49,6 @@ dependencies {
     implementation(libs.converter.moshi)
     implementation(libs.moshi.kotlin)
 
-    // Room
-    implementation(libs.androidx.room.runtime)
-    kapt (libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
