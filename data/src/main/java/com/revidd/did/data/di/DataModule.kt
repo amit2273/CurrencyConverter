@@ -1,7 +1,7 @@
-package com.revidd.did.di
+package com.revidd.did.data.di
 
-import com.revidd.did.api.VideoApiService
-import com.revidd.did.repository.VideoRepositoryImpl
+import com.revidd.did.data.api.VideoApiService
+import com.revidd.did.data.repository.VideoRepositoryImpl
 import com.revidd.did.repository.VideoRepository
 import org.koin.dsl.module
 import retrofit2.Retrofit

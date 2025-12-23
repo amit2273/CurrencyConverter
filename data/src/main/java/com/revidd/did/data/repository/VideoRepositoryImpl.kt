@@ -1,5 +1,5 @@
-package com.revidd.did.repository
-import com.revidd.did.api.VideoApiService
+package com.revidd.did.data.repository
+import com.revidd.did.data.api.VideoApiService
 import com.revidd.did.model.Video
 import com.revidd.did.repository.VideoRepository
 import kotlinx.coroutines.Dispatchers

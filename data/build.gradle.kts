@@ -1,11 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.apollo)
     id("kotlin-kapt")
 }
 
 android {
-    namespace = "com.revidd.did"
+    namespace = "com.revidd.did.data"
     compileSdk = 36
 
     defaultConfig {
@@ -30,6 +31,21 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+    }
+}
+
+apollo {
+    service("service") {
+
+        // Package for GENERATED GraphQL Kotlin code
+        packageName.set("com.revidd.did.data.graphql")
+
+        // Explicit schema location (mandatory)
+        schemaFile.set(
+            file("src/main/graphql/schema.graphqls")
+        )
+
+        generateKotlinModels.set(true)
     }
 }
 
@@ -70,6 +86,9 @@ dependencies {
 // JUnit 4
     testImplementation(libs.junit)
     testImplementation("app.cash.turbine:turbine:1.0.0")
+
+    implementation(libs.apollo.runtime)
+    implementation(libs.apollo.cache)
 
 
 }

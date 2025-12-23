@@ -1,4 +1,4 @@
-package com.revidd.did
+package com.revidd.did.data
 
 data class VideoDto(
     val id: String,
