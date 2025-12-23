@@ -75,6 +75,10 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
     implementation(libs.coil.compose)
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
+    implementation(libs.glide)
+    implementation(libs.compose)
+    implementation(libs.androidx.tv.material)
+    implementation(libs.androidx.navigation.compose.v280)
+    implementation(libs.coil.kt.coil.compose)
+
 }
