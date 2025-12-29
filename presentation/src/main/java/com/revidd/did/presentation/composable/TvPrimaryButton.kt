@@ -9,9 +9,9 @@ import androidx.tv.material3.Button
 import androidx.tv.material3.Text
 
 @Composable
-fun TvPrimaryButton(text: String) {
+fun TvPrimaryButton(text: String, onClick : ()-> Unit) {
     Button(
-        onClick = {},
+        onClick = {onClick.invoke()},
         modifier = Modifier
             .height(52.dp)
             .fillMaxWidth()

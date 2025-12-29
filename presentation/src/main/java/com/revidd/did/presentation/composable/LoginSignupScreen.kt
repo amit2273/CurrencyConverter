@@ -23,9 +23,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.revidd.did.presentation.R
+import com.revidd.did.presentation.state.SignInIntent
+import com.revidd.did.presentation.state.SignInUiState
 
 @Composable
-fun LoginSignupScreen() {
+fun LoginSignupScreen(signInUiState: SignInUiState,
+                      intent: (SignInIntent) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -65,7 +68,7 @@ fun LoginSignupScreen() {
 
             Spacer(Modifier.height(24.dp))
 
-            TvPrimaryButton("SIGN IN")
+            TvPrimaryButton("SIGN IN") { intent.invoke(SignInIntent.SignIn) }
 
             Spacer(Modifier.height(16.dp))
 

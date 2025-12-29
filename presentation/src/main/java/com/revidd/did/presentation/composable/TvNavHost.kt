@@ -1,9 +1,12 @@
 package com.revidd.did.presentation.composable
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.revidd.did.presentation.viewmodel.SignInViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun TvNavHost() {
@@ -22,7 +25,9 @@ fun TvNavHost() {
         }
 
         composable("login") {
-            com.revidd.did.presentation.composable.LoginSignupScreen()
+            val signInViewmodel = koinViewModel<SignInViewModel>()
+            val uiState = signInViewmodel.uiState.collectAsStateWithLifecycle().value
+            LoginSignupScreen(signInUiState = uiState, intent = signInViewmodel::handleIntent)
         }
     }
 }

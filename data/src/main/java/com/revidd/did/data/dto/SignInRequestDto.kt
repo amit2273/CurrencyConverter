@@ -1,6 +1,6 @@
 package com.revidd.did.data.dto
 
-data class SignInRequest(
+data class SignInRequestDto(
     val email : String,
     val password : String,
     val storefront : String,
