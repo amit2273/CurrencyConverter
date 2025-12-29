@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -27,8 +29,13 @@ import com.revidd.did.presentation.state.SignInIntent
 import com.revidd.did.presentation.state.SignInUiState
 
 @Composable
-fun LoginSignupScreen(signInUiState: SignInUiState,
-                      intent: (SignInIntent) -> Unit) {
+fun LoginSignupScreen(
+    signInUiState: SignInUiState,
+    intent: (SignInIntent) -> Unit
+) {
+
+    val emailField = remember { mutableStateOf("") }
+    val password = remember { mutableStateOf("") }
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -57,18 +64,30 @@ fun LoginSignupScreen(signInUiState: SignInUiState,
 
             TvTextField(
                 label = "Enter Email ID"
-            )
+            ) {
+                emailField.value = it
+            }
 
             Spacer(Modifier.height(16.dp))
 
             TvTextField(
                 label = "Enter Password",
                 isPassword = true
-            )
+            ) {
+                password.value = it
+            }
 
             Spacer(Modifier.height(24.dp))
 
-            TvPrimaryButton("SIGN IN") { intent.invoke(SignInIntent.SignIn) }
+            TvPrimaryButton("SIGN IN")
+            {
+                intent.invoke(
+                    SignInIntent.SignIn(
+                        email = emailField.value,
+                        password = password.value
+                    )
+                )
+            }
 
             Spacer(Modifier.height(16.dp))
 

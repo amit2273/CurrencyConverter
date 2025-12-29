@@ -1,5 +1,5 @@
 package com.revidd.did.presentation.state
 
 sealed interface SignInIntent{
-    data object SignIn : SignInIntent
+    data class SignIn(val email : String, val password : String) : SignInIntent
 }

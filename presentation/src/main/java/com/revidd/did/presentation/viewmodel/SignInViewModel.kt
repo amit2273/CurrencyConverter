@@ -8,6 +8,7 @@ import com.revidd.did.presentation.state.SignInUiState
 import com.revidd.did.usecase.SignInUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SignInViewModel(private val signInUseCase: SignInUseCase) : ViewModel() {
@@ -17,16 +18,16 @@ class SignInViewModel(private val signInUseCase: SignInUseCase) : ViewModel() {
 
     fun handleIntent(intent : SignInIntent){
         when(intent){
-            SignInIntent.SignIn -> {
+            is SignInIntent.SignIn -> {
                 viewModelScope.launch {
                     signInUseCase.execute(SignInData(
-                        email = "vijay@revidd.com",
-                        password = "123456"
+                        email = intent.email,
+                        password = intent.password
                     )).onSuccess {
-                        println("Testtttttt Success")
+                        _uiState.update { it.copy(isLoading = false, isSuccess = true) }
 
                     }.onFailure {
-                        println("Testtttttt Failure")
+                        _uiState.update { it.copy(isLoading = true) }
                     }
                 }
             }

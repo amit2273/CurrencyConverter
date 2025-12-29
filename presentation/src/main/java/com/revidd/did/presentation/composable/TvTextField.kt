@@ -15,14 +15,20 @@ import androidx.compose.ui.text.input.VisualTransformation
 @Composable
 fun TvTextField(
     label: String,
-    isPassword: Boolean = false
+    isPassword: Boolean = false,
+    enteredValue : (String) -> Unit
 ) {
     var value by remember { mutableStateOf("") }
 
     OutlinedTextField(
         value = value,
-        onValueChange = { value = it },
+        onValueChange = {
+            value = it
+            enteredValue(it)
+                        },
         label = { Text(label) },
+        singleLine = true,
+        maxLines = 1,
         modifier = Modifier.fillMaxWidth(),
         visualTransformation =
             if (isPassword) PasswordVisualTransformation()
