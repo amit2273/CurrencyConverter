@@ -23,6 +23,4 @@ rootProject.name = "revidd"
 include(":app")
 include(":data")
 include(":domain")
-include(":domain:lib")
 include(":presentation")
-include(":presentation:feature-consumption")

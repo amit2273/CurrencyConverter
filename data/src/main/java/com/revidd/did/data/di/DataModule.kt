@@ -1,5 +1,6 @@
 package com.revidd.did.data.di
 
+import com.revidd.did.data.api.SignInApiService
 import com.revidd.did.data.api.VideoApiService
 import com.revidd.did.data.repository.VideoRepositoryImpl
 import com.revidd.did.repository.VideoRepository
@@ -10,12 +11,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 val dataModule = module {
     single {
         Retrofit.Builder()
-            .baseUrl("https://gist.githubusercontent.com/")
+            .baseUrl("https://ultraplays.api1.revidd.video/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
     single { get<Retrofit>().create(VideoApiService::class.java) }
+
+    single { get<Retrofit>().create(SignInApiService::class.java) }
 
     factory <VideoRepository> {
         VideoRepositoryImpl(
