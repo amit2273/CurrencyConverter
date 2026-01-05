@@ -2,10 +2,15 @@ package com.revidd.did.data.di
 
 import com.revidd.did.data.api.SignInApiService
 import com.revidd.did.data.api.VideoApiService
+import com.revidd.did.data.repository.DeviceInfoRepositoryImpl
 import com.revidd.did.data.repository.SignInRepositoryImpl
 import com.revidd.did.data.repository.VideoRepositoryImpl
+import com.revidd.did.repository.DeviceInfoRepository
 import com.revidd.did.repository.SignInRepository
 import com.revidd.did.repository.VideoRepository
+import kotlinx.coroutines.Dispatchers
+import okhttp3.Dispatcher
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -28,8 +33,17 @@ val dataModule = module {
         )
     }
 
+
+
+    factory <DeviceInfoRepository> {
+        DeviceInfoRepositoryImpl(
+            context = androidContext(),
+        )
+    }
+
     factory <SignInRepository> {
         SignInRepositoryImpl(
+            dispatcher = Dispatchers.Default,
             signInApiService = get(),
         )
     }

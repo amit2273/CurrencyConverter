@@ -5,4 +5,6 @@ import com.revidd.did.model.SignInData
 interface SignInRepository {
 
     suspend fun signIn(data : SignInData) : Result<Boolean>
+
+    suspend fun getQRCode(deviceId: String) : Result<String>
 }

@@ -3,6 +3,7 @@ package com.revidd.did.presentation.composable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,8 +12,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -24,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.revidd.did.presentation.R
 import com.revidd.did.presentation.state.SignInIntent
 import com.revidd.did.presentation.state.SignInUiState
@@ -114,7 +118,9 @@ fun LoginSignupScreen(
             }
         }
 
-        // RIGHT PANEL – QR LOGIN
+        LaunchedEffect(Unit) {
+            intent.invoke(SignInIntent.SignInQrCode)
+        }
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -132,8 +138,8 @@ fun LoginSignupScreen(
 
             Spacer(Modifier.height(24.dp))
 
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background),
+            AsyncImage(
+                model = signInUiState.qrCode,
                 contentDescription = "QR Code",
                 modifier = Modifier.size(220.dp)
             )
@@ -148,4 +154,19 @@ fun LoginSignupScreen(
             )
         }
     }
+
+    if (signInUiState.isLoading) {
+        FullScreenLoader()
+    }
 }
+
+@Composable
+fun FullScreenLoader() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
+    }
+}
+

@@ -1,7 +1,7 @@
-package com.revidd.did.repository
+package com.revidd.did.usecase
 
 import com.revidd.did.model.SignInData
-import com.revidd.did.usecase.SignInUseCase
+import com.revidd.did.repository.SignInRepository
 
 class SignInUseCaseImpl(private val repository: SignInRepository) : SignInUseCase {
 

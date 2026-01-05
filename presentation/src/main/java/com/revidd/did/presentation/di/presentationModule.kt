@@ -7,7 +7,7 @@ import org.koin.dsl.module
 val presentationModule = module {
 
     viewModel {
-        SignInViewModel(signInUseCase = get())
+        SignInViewModel(signInUseCase = get(), signInQRCodeUseCase = get())
     }
 
 }

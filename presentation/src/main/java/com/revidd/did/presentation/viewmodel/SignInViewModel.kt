@@ -6,6 +6,7 @@ import com.revidd.did.model.SignInData
 import com.revidd.did.presentation.state.SignInEffect
 import com.revidd.did.presentation.state.SignInIntent
 import com.revidd.did.presentation.state.SignInUiState
+import com.revidd.did.usecase.SignInQRCodeUseCase
 import com.revidd.did.usecase.SignInUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +15,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class SignInViewModel(private val signInUseCase: SignInUseCase) : ViewModel() {
+class SignInViewModel(private val signInUseCase: SignInUseCase,
+    private val signInQRCodeUseCase: SignInQRCodeUseCase) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SignInUiState())
     val uiState = _uiState.asStateFlow()
@@ -22,11 +24,26 @@ class SignInViewModel(private val signInUseCase: SignInUseCase) : ViewModel() {
     private val _signInEffect = MutableSharedFlow<SignInEffect>()
     val signInEffect = _signInEffect.asSharedFlow()
 
+    init {
+        getQrCode()
+    }
+
+    private fun getQrCode(){
+        viewModelScope.launch {
+            signInQRCodeUseCase.execute(Unit).onSuccess { qrCode ->
+                _uiState.update { it.copy(isLoading = false, isSuccess = true, qrCode = qrCode) }
+            }.onFailure {
+                _uiState.update { it.copy(isLoading = false) }
+            }
+        }
+    }
+
 
 
     fun handleIntent(intent : SignInIntent){
         when(intent){
             is SignInIntent.SignIn -> {
+                _uiState.update { it.copy(isLoading = true) }
                 viewModelScope.launch {
                     signInUseCase.execute(SignInData(
                         email = intent.email,
@@ -37,10 +54,12 @@ class SignInViewModel(private val signInUseCase: SignInUseCase) : ViewModel() {
 
                     }.onFailure {
                         _signInEffect.emit(SignInEffect.ShowToast)
-                        _uiState.update { it.copy(isLoading = true) }
+                        _uiState.update { it.copy(isLoading = false) }
                     }
                 }
             }
+
+            is SignInIntent.SignInQrCode -> Unit
         }
 
     }
